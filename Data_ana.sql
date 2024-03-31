@@ -46,3 +46,38 @@ FROM (
 ORDER BY 
     y_m;
 
+SELECT 
+    sum_price, 
+    m_d
+FROM (
+    SELECT 
+        SUM(list_price) AS sum_price, 
+        SUBSTRING(updated_at, 1, 10) AS m_d
+    FROM 
+        ord -- 여기에 실제 테이블 이름을 입력하세요.
+    WHERE 
+        state = "COMPLETED"
+    GROUP BY 
+        m_d
+) AS subquery1
+ORDER BY 
+    sum_price DESC
+LIMIT 3;
+SELECT 
+    sum_price, 
+    m_d
+FROM (
+    SELECT 
+        SUM(list_price) AS sum_price, 
+        SUBSTRING(updated_at, 1, 10) AS m_d
+    FROM 
+        ord -- 여기에 실제 테이블 이름을 입력하세요.
+    WHERE 
+        state = "COMPLETED"
+    GROUP BY 
+        m_d
+) AS subquery1
+ORDER BY 
+    sum_price asc
+LIMIT 3;
+
